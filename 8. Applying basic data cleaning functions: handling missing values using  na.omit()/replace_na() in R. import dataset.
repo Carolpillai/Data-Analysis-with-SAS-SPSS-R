@@ -1,0 +1,50 @@
+install.packages("tidyr")
+library(dplyr)
+library(tidyr)
+
+housing_df <- read.csv("/Users/carol/Desktop/R/Housing.csv", na.strings = c("", "NA"))
+
+print("--- 1. Original Data (First 6 Rows) ---")
+print(head(housing_df))
+
+print("--- Count of Missing Values per Column ---")
+print(colSums(is.na(housing_df)))
+
+
+
+clean_omit <- na.omit(housing_df)
+
+print("--- 2. Data after na.omit() ---")
+print(paste("Original rows:", nrow(housing_df)))
+print(paste("Rows remaining after na.omit():", nrow(clean_omit)))
+print(head(clean_omit))
+
+
+
+
+avg_price <- mean(housing_df$price, na.rm = TRUE)
+avg_area  <- mean(housing_df$area, na.rm = TRUE)
+
+clean_replace <- housing_df %>%
+  replace_na(list(
+    price = avg_price,
+    area = avg_area,
+    bedrooms = median(housing_df$bedrooms, na.rm = TRUE),
+    bathrooms = median(housing_df$bathrooms, na.rm = TRUE),
+    stories = median(housing_df$stories, na.rm = TRUE),
+    parking = 0,
+    
+    mainroad = "no",
+    guestroom = "no",
+    basement = "no",
+    hotwaterheating = "no",
+    airconditioning = "no",
+    prefarea = "no",
+    furnishingstatus = "unfurnished"
+  ))
+
+print("3. Data after replace_na()")
+print(head(clean_replace, 3))
+
+print("Remaining NAs after replacement")
+print(colSums(is.na(clean_replace)))
