@@ -1,0 +1,59 @@
+install.packages("stringr")
+install.packages("tidyr")
+library(stringr)
+library(tidyr)
+library(dplyr)
+
+bakery_data <- data.frame(
+  SKU = c(
+    "BAKE-1101-2023",
+    "PAST-2244-2022",
+    "BRED-3102-2023",
+    "CAKE-5578-2021",
+    "COOK-9090-2023"
+  ),
+  
+  Description = c(
+    "Bakery - Chocolate Croissant",
+    "Pastry - Apple Turnover",
+    "Bread - Multigrain Loaf",
+    "Cake - Red Velvet",
+    "Cookie - Choco Chip"
+  ),
+  
+  Price = c(120, 80, 60, 450, 30)
+)
+
+print("--- Original Bakery Dataset ---")
+print(bakery_data)
+
+
+
+bakery_data$Category_Code <- str_sub(bakery_data$SKU, 1, 4)
+bakery_data$Year <- str_sub(bakery_data$SKU, -4, -1)
+
+print("--- Data after str_sub() ---")
+print(bakery_data %>% select(SKU, Category_Code, Year))
+
+
+
+split_list <- str_split(bakery_data$Description, " - ")
+print("--- Basic Split Output (First Element) ---")
+print(split_list[[1]])
+
+
+split_matrix <- str_split(bakery_data$Description, " - ", simplify = TRUE)
+
+bakery_data$Main_Cat <- split_matrix[, 1]   
+bakery_data$Sub_Cat  <- split_matrix[, 2]   
+
+print("--- Data after str_split() ---")
+print(bakery_data %>% select(Description, Main_Cat, Sub_Cat))
+
+
+
+tidy_bakery <- bakery_data %>%
+  separate(SKU, into = c("Dept", "ID", "Mfg_Year"), sep = "-")
+
+print("--- Using separate() ---")
+print(tidy_bakery %>% select(Dept, ID, Mfg_Year))
