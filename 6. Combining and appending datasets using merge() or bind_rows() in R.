@@ -1,0 +1,39 @@
+library(dplyr)
+data1 <- data.frame(
+  ID = c(1, 2, 3),
+  Name = c("Carol", "Sahil", "Ziven"),
+  marks = c(50, 60, 70)
+)
+
+
+data2 <- data.frame(
+  ID = c(1, 2, 3),
+  Name = c("Carol", "Sahil", "Ziven"),
+  marks = c(70,70, 90)
+)
+
+data3 <- data.frame(
+  ID = c(4, 5),
+  Name = c("Tanvi", "Kavya"),
+  Jan_Sales = c(50, 50)
+)
+
+print("--- Data January ---")
+print(data1)
+print("--- Data February ---")
+print(data2)
+
+
+
+merged_data <- merge(data1, data2, by = c("ID", "Name"))
+
+print("--- Merged Data (Columns Added) ---")
+print(merged_data)
+
+
+
+
+final_list <- bind_rows(data1, data3)
+
+print("--- Appended Data (Rows Added) ---")
+print(final_list)
