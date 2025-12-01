@@ -1,0 +1,46 @@
+housing <- read.csv("/Users/carol/Desktop/R/Housing.csv")
+
+print("--- Original Dataset (First 3 rows) ---")
+print(head(housing, 3))
+
+
+selected_cols <- housing %>%
+  select(price, area, bedrooms)
+
+print("--- Selected Specific Columns ---")
+print(head(selected_cols, 3))
+
+  
+range_cols <- housing %>%
+  select(area:basement)
+
+print("--- Selected Range of Columns ---")
+print(head(range_cols, 3))
+
+
+starts_with_b <- housing %>%
+  select(starts_with("b"))
+
+print("--- Selected columns starting with 'b' ---")
+print(head(starts_with_b, 3))
+
+
+dropped_one <- housing %>%
+  select(-prefarea)
+
+print("--- Dataset with 'prefarea' dropped ---")
+print(names(dropped_one))
+
+
+dropped_multiple <- housing %>%
+  select(-guestroom, -basement)
+
+print("--- Dataset with 'guestroom' and 'basement' dropped ---")
+print(names(dropped_multiple))
+
+
+dropped_range <- housing %>%
+  select(-(bedrooms:airconditioning))
+
+print("--- Dataset with range 'bedrooms' to 'airconditioning' dropped ---")
+print(names(dropped_range))
