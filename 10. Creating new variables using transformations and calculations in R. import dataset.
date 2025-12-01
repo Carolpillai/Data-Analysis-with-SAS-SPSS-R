@@ -1,0 +1,44 @@
+library(dplyr)
+library(tidyr)
+
+df <- read.csv("Housing.csv", na.strings = c("", "NA"))
+
+
+
+df_clean <- df %>%
+  mutate(
+    price = replace_na(price, 0),
+    area = replace_na(area, 0),
+    bedrooms = replace_na(bedrooms, 0),
+    bathrooms = replace_na(bathrooms, 0),
+    stories = replace_na(stories, 0),
+    parking = replace_na(parking, 0)
+  )
+
+print("--- Cleaned Housing Data ---")
+print(head(df_clean))
+
+
+
+
+df_calc <- df_clean %>%
+  mutate(
+    Cost_per_sqft = ifelse(area == 0, 0, price / area),
+    Bedroom_Value = ifelse(bedrooms == 0, 0, price / bedrooms)
+  )
+
+print("--- Method A: Arithmetic Results ---")
+print(df_calc %>% select(price, area, Cost_per_sqft, bedrooms, Bedroom_Value))
+
+
+
+
+df_logic <- df_clean %>%
+  mutate(
+    Price_Category = ifelse(price > 3000000, "Luxury", "Affordable"),
+    Area_Category = ifelse(area > 2000, "Spacious", "Compact"),
+    Parking_Label = ifelse(parking > 1, "Good Parking", "Limited Parking")
+  )
+
+print("--- Method B: Logic Results ---")
+print(df_logic %>% select(price, Price_Category, area, Area_Category, parking, Parking_Label))
