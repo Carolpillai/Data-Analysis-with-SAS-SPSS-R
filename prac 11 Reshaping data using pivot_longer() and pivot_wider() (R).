@@ -1,0 +1,44 @@
+library(dplyr)
+library(tidyr)
+
+df  <- read.csv("supermarket_sales_150 - Sheet1.csv", na.strings = c("", "NA")) %>%
+  mutate(ProductID = row_number()) %>%     
+  select(
+    ProductID, Invoice.ID, Date, Customer.Type,
+    Gender, Product.Category, Unit.Price, Quantity, Total.Sales
+  )
+
+print("--- 1. Original Data ---")
+print(head(df))
+
+long_df <- df %>%
+  pivot_longer(
+    cols = c(Unit.Price, Quantity, Total.Sales),
+    names_to = "Metric",
+    values_to = "Value"
+  )
+
+print("--- 2. Long Format (pivot_longer) ---")
+print(head(long_df))
+
+wide_df <- long_df %>%
+  pivot_wider(
+    names_from = Metric,
+    values_from = Value
+  )
+
+print("--- 3. Wide Format (Back to Original) ---")
+print(head(wide_df))
+
+df_clean <- df %>%
+  mutate(Product.Category = ifelse(is.na(Product.Category), "Unknown", Product.Category))
+
+category_pivot <- df_clean %>%
+  select(ProductID, Product.Category, Total.Sales) %>%
+  pivot_wider(
+    names_from = Product.Category,
+    values_from = Total.Sales
+  )
+
+print("--- 4. Category Pivot (Spreading Product Categories) ---")
+print(head(category_pivot))
