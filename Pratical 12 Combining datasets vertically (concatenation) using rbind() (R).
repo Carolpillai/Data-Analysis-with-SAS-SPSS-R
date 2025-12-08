@@ -1,0 +1,46 @@
+library(dplyr)
+library(tidyr)
+
+
+
+data(iris)
+
+flower_df  <- read_csv("thesis_data.csv")
+flowers <- read_csv("flowers.csv")
+
+print("Data Structure Before Transformation")
+print(names(iris))
+print(names(flower_df))
+
+
+
+iris_clean <- iris[, c("Species", "Sepal.Length")]
+names(iris_clean) <- c("Species", "Height")  
+
+iris_clean$Height <- as.numeric(iris_clean$Height)
+
+
+
+flower_clean <- flower_df %>%
+  select(Treatments, Height_90days) %>%
+  rename(
+    Species = Treatments,
+    Height = Height_90days
+  )
+
+flower_clean$Height <- as.numeric(flower_clean$Height)
+
+
+combined_data <- rbind(iris_clean, flower_clean)
+
+print("--- Combined Data Summary ")
+cat("Iris rows: ", nrow(iris_clean), "\n")
+cat("Flower rows: ", nrow(flower_clean), "\n")
+cat("Total rows (Expected): ", nrow(iris_clean) + nrow(flower_clean), "\n")
+cat("Total rows (Actual): ", nrow(combined_data), "\n")
+
+print("--- Preview of Combined Data (Top 6) ---")
+print(head(combined_data))
+
+print("--- Preview of Combined Data (Bottom 6) ---")
+print(tail(combined_data))
