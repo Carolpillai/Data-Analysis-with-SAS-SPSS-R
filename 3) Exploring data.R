@@ -1,7 +1,7 @@
 library(readr)
 library(psych)
 
-my_data <- read.csv("C:/Users/Ziven/Downloads/Housing.csv")
+my_data <- read.csv("C:/Users/CarolPillai/Downloads/Housing.csv")
 
 colnames(my_data) <- c(
   "price",
@@ -26,3 +26,4 @@ summary(my_data)
 str(my_data)
 
 describe(my_data)
+
