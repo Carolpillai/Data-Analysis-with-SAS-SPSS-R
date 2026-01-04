@@ -1,6 +1,6 @@
 library(dplyr)
 
-boston <- read.csv("C:/Users/Ziven/Downloads/Housing.csv")
+boston <- read.csv("C:/Users/Carol/Downloads/Housing.csv")
 
 boston_sorted_medv <- boston |>
   arrange(price)
@@ -23,4 +23,5 @@ large_homes_by_tax <- boston |>
 
 cat("Top 5 largest homes by lowest area:\n")
 print(large_homes_by_tax |> select(area, bathrooms, price) |> head(5))
+
 
