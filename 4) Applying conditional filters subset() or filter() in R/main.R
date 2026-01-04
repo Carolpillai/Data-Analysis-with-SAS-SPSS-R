@@ -4,7 +4,7 @@ install.packages("readr")
 library(dplyr)
 library(readr)
 
-housing <- read_csv("C:/Users/Ziven/Downloads/Housing.csv")
+housing <- read_csv("C:/Users/CarolPillai/Downloads/Housing.csv")
 
 str(housing)
 
@@ -41,3 +41,4 @@ table(stories_filter$stories)
 mainroad_affordable <- housing |>
   filter(mainroad == "yes", price < 8000000)
 cat("Rows:", nrow(mainroad_affordable), "\n")
+
