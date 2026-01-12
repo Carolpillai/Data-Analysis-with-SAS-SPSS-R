@@ -1,0 +1,11 @@
+library(ggplot2)
+
+ggplot(data, aes(x = Purchasing_Power_Index, y = Quality_of_Life_Index)) +
+  geom_point(size = 3, color = "blue") +
+  geom_text(aes(label = Country), vjust = -0.6, size = 3) +
+  labs(
+    title = "Scatter Plot: Purchasing Power vs Quality of Life",
+    x = "Purchasing Power Index",
+    y = "Quality of Life Index"
+  ) +
+  theme_minimal()
