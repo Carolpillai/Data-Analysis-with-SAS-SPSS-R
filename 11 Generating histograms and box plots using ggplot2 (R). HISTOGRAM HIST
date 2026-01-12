@@ -1,0 +1,8 @@
+ggplot(data, aes(x = Cost_of_Living_Index)) +
+  geom_histogram(binwidth = 10, fill = "lightBLUE", color = "black") +
+  labs(
+    title = "Histogram of Cost of Living Index",
+    x = "Cost of Living Index",
+    y = "Frequency"
+  ) +
+  theme_minimal()
