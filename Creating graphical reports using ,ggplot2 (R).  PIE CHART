@@ -1,0 +1,10 @@
+library(ggplot2)
+
+ggplot(data, aes(x = "", y = Cost_of_Living_Index, fill = Country)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  labs(
+    title = "Pie Chart of Cost of Living Index by Country",
+    fill = "Country"
+  ) +
+  theme_void()
