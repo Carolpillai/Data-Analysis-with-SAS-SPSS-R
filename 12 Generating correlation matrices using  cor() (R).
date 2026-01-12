@@ -1,0 +1,11 @@
+data <- read.csv("path/to/your/data.csv")
+
+numeric_data <- data[, c("Quality_of_Life_Index", 
+                         "Purchasing_Power_Index", 
+                         "Safety_Index", 
+                         "Health_Care_Index", 
+                         "Cost_of_Living_Index")]
+
+cor_matrix <- cor(numeric_data, use = "complete.obs", method = "pearson")
+
+print(cor_matrix)
