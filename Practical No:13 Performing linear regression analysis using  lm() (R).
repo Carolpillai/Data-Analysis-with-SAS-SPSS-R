@@ -1,0 +1,20 @@
+library(readr)
+library(writexl)
+
+data <- read_csv("C:/Users/Carol Pillai/Downloads/StudentPerformance.csv")
+
+data$`Extracurricular Activities` <- 
+  as.factor(data$`Extracurricular Activities`)
+
+model <- lm(
+  `Performance Index` ~ `Hours Studied` +
+    `Previous Scores` +
+    `Extracurricular Activities` +
+    `Sleep Hours` +
+    `Sample Question Papers Practiced`,
+  data = data
+)
+
+model_excel <- summary(model)$coefficients
+
+write_xlsx(as.data.frame(model_excel), "Student_LM_Results.xlsx")
