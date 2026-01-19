@@ -60,3 +60,4 @@ model <- lm(
   data = student_data
 )
 summary(model)
+write.csv(student_data, "Student_Data.csv", row.names = FALSE)
