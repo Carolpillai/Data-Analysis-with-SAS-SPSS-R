@@ -1,0 +1,20 @@
+StudentPerformance <- read_csv("C:/Users/Carol Pillai/Downloads/StudentPerformance.csv")
+student_data <- data.frame(
+  Hours_Studied = c(7, 4, 8, 5, 7),
+  Previous_Scores = c(82, 65, 51, 52, 75),
+  Extracurricular_Activities = c("Yes", "No", "Yes", "Yes", "No"),
+  Sleep_Hours = c(9, 2, 2, 2, 5),
+  Sample_Question_Papers_Practiced = c(1, 2, 2, 2, 5),
+  Performance_Index = c(91, 65, 45, 36, 66)
+)
+student_data$Extracurricular_Activities <- 
+  as.factor(student_data$Extracurricular_Activities)
+model <- lm(
+  Performance_Index ~ Hours_Studied +
+    Previous_Scores +
+    Extracurricular_Activities +
+    Sleep_Hours +
+    Sample_Question_Papers_Practiced,
+  data = student_data
+)
+summary(model)
